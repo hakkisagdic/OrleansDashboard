@@ -192,10 +192,7 @@ namespace OrleansDashboard
             context.Response.StatusCode = 200;
             context.Response.ContentType = "text/json";
 
-            await using (var writer = new Utf8JsonWriter(context.Response.BodyWriter))
-            {
-                JsonSerializer.Serialize(writer, content, Options);
-            }
+            await context.Response.WriteAsync(JsonSerializer.Serialize(content, Options));
         }
 
         private static async Task WriteFileAsync(HttpContext context, string name, string contentType)
